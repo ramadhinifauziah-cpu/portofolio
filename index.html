@@ -2,23 +2,22 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fauziah's Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f172a;
-            --accent-color: #8b5cf6; /* Ungu cerah */
-            --secondary-color: #06b6d4; /* Cyan */
+            --accent-color: #8b5cf6;
+            --secondary-color: #06b6d4;
             --text-color: #f8fafc;
             --card-bg: rgba(255, 255, 255, 0.05);
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Space Grotesk', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Hapus kotak biru saat klik di HP */
         }
 
         body {
@@ -28,14 +27,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
         }
 
-        /* Latar belakang dekoratif (Blob) */
         .blob {
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 250px; height: 250px;
             background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
             filter: blur(80px);
             border-radius: 50%;
@@ -44,112 +43,72 @@
         }
 
         @keyframes move {
-            from { transform: translate(-50%, -50%); }
-            to { transform: translate(50%, 50%); }
+            from { transform: translate(-30%, -30%); }
+            to { transform: translate(30%, 30%); }
         }
 
-        /* Container Utama */
         .dashboard {
             background: var(--card-bg);
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 24px;
-            width: 90%;
-            max-width: 500px;
+            width: 100%;
+            max-width: 400px; /* Ukuran pas untuk HP */
             text-align: center;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* Foto Profil Placeholder */
         .profile-img {
-            width: 120px;
-            height: 120px;
+            width: 110px; height: 110px;
             border-radius: 50%;
-            border: 4px solid var(--accent-color);
-            margin-bottom: 1.5rem;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 1rem;
             object-fit: cover;
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
-        }
+        h1 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 0.9rem; color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.4; }
 
-        p.subtitle {
-            font-size: 1rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-        }
-
-        /* Menu Buttons */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .btn {
-            text-decoration: none;
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            text-decoration: none; color: white; padding: 12px;
+            border-radius: 16px; background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            font-weight: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            transition: all 0.3s ease; font-size: 0.85rem;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
         }
 
-        .btn:hover {
-            background: var(--accent-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-        }
+        .btn:active { transform: scale(0.95); } /* Efek klik di HP */
 
-        /* Khusus tombol Sosmed biar lebar penuh */
         .btn-full {
             grid-column: span 2;
             background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            font-weight: bold;
         }
 
-        .btn-full:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-        }
-
-        /* Responsive */
-        @media (max-width: 400px) {
-            .menu-grid { grid-template-columns: 1fr; }
-            .btn-full { grid-column: span 1; }
-        }
-                .music-btn {
-            position: fixed; bottom: 20px; right: 20px;
-            background: var(--card-bg); backdrop-filter: blur(10px);
+        .music-btn {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%); /* Center di HP */
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white; padding: 10px 15px; border-radius: 50px;
-            cursor: pointer; z-index: 100; font-size: 0.8rem;
+            color: white; padding: 8px 16px; border-radius: 50px;
+            cursor: pointer; z-index: 100; font-size: 0.75rem;
+            white-space: nowrap;
         }
-
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn {
-            text-decoration: none; color: white; padding: 14px; border-radius: 16px;
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-5px); border-color: var(--secondary-color); }
-        .btn-main { grid-column: span 2; background: linear-gradient(90deg, var(--accent-color), var(--secondary-color)); font-weight: 700; }
     </style>
 </head>
-<body>
-  <body onclick="playAudio()">
+<body onclick="playAudio()">
 
     <audio id="myAudio" loop>
-        <source src="asap.mp3" type="audio/mp3">
+        <source src="asap.mp3" type="audio/mpeg">
     </audio>
 
     <div class="blob"></div>
@@ -158,33 +117,18 @@
         <img src="IMG_0916.JPG" alt="Profile" class="profile-img">
         
         <h1>Halo, I'm Fauziah 👋</h1>
-        <p class="subtitle">Creative Developer | Accountan | Creative Designer</p>
+        <p class="subtitle">Creative Developer | Accountant | Creative Designer</p>
 
         <div class="menu-grid">
-            <a href="#" class="btn">
-                <span>🏆</span>
-                Sertifikat
-            </a>
-            <a href="#" class="btn">
-                <span>🚀</span>
-                Projects
-            </a>
-            <a href="#" class="btn">
-                <span>📄</span>
-                View CV
-            </a>
-            <a href="#" class="btn">
-                <span>💡</span>
-                Website Portofolio
-            </a>
-            <a href="#" class="btn btn-full">
-                <span>✨</span>
-                My Social Media
-            </a>
+            <a href="#" class="btn"><span>🏆</span> Sertifikat</a>
+            <a href="#" class="btn"><span>🚀</span> Projects</a>
+            <a href="#" class="btn"><span>📄</span> View CV</a>
+            <a href="#" class="btn"><span>💡</span> Website</a>
+            <a href="#" class="btn btn-full"><span>✨</span> My Social Media</a>
         </div>
-    
-      </div>
-    <button class="music-btn" id="musicStatus">🎵 Music: Off (Click anywhere)</button>
+    </div>
+
+    <button class="music-btn" id="musicStatus">🎵 Musik: Off (Ketuk layar)</button>
 
     <script>
         const audio = document.getElementById("myAudio");
@@ -193,10 +137,10 @@
 
         function playAudio() {
             if (!hasPlayed) {
-                audio.play();
-                audio.volume = 0.5; // Set volume 50%
-                statusText.innerText = "🎵 Playing: NewJeans - ASAP";
-                hasPlayed = true;
+                audio.play().then(() => {
+                    statusText.innerText = "🎵 Now Playing: NewJeans - ASAP";
+                    hasPlayed = true;
+                }).catch(err => console.log("Menunggu interaksi..."));
             }
         }
     </script>
