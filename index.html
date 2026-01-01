@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(to bottom, #5561d3, #7c9ae0, #a3b4dc, #e9ecf1);
+            --bg-gradient: linear-gradient(180deg, #5561d3 0%, #7c9ae0 40%, #a3b4dc 70%, #e9ecf1 100%);
             --accent-color: #a855f7;
             --secondary-color: #22d3ee;
-            --text-color: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -25,148 +25,137 @@
             background-attachment: fixed;
             color: var(--text-color);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            position: relative;
-            overflow: hidden; 
+            overflow-y: auto; /* Scroll Aktif */
+            overflow-x: hidden;
+            padding: 40px 20px;
         }
 
-        /* --- GUNUNG (BACKGROUND STATIS) --- */
+        /* --- BACKGROUND ELEMENTS --- */
         .mountain {
-            position: absolute;
-            bottom: 0;
+            position: fixed;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            min-width: 600px; /* Agar tidak kekecilan di layar lebar */
-            z-index: 0; /* Paling belakang */
-            opacity: 0.7;
-            pointer-events: none; /* Supaya tidak mengganggu klik tombol */
+            max-width: 1200px;
+            z-index: -1;
+            image-rendering: pixelated;
+            pointer-events: none;
+            opacity: 0.9;
         }
 
-        /* --- ANIMASI AWAN BERGERAK --- */
         .cloud {
-            position: absolute;
-            width: 180px;
-            z-index: 1; /* Di depan gunung, tapi di belakang dashboard */
+            position: fixed;
+            pointer-events: none;
             image-rendering: pixelated;
-            opacity: 0.8;
-            animation: moveClouds linear infinite;
+            z-index: -1;
+            will-change: transform;
         }
-        
-        .cloud-1 { top: 5%; animation-duration: 30s; width: 220px; }
-        .cloud-2 { top: 22%; animation-duration: 45s; animation-delay: -10s; width: 150px; } 
-        .cloud-3 { top: 40%; animation-duration: 35s; animation-delay: -20s; width: 200px; opacity: 0.6; }
+
+        /* Awan Putih (Kiri -> Kanan) */
+        .cloud-white { animation: moveClouds linear infinite; }
+        .cloud-1 { top: 10%; width: 200px; animation-duration: 35s; opacity: 0.8; }
+        .cloud-2 { top: 25%; width: 140px; animation-duration: 50s; animation-delay: -10s; opacity: 0.6; }
+        .cloud-3 { top: 45%; width: 180px; animation-duration: 40s; animation-delay: -20s; opacity: 0.7; }
 
         @keyframes moveClouds {
-            from { left: -300px; }
-            to { left: 110vw; }
+            from { transform: translateX(-300px); left: 0; }
+            to { transform: translateX(100vw); left: 0; }
         }
 
-        /* --- DASHBOARD --- */
+        /* Awan Biru (Kanan -> Kiri) */
+        .cloud-blue { animation: moveReverse linear infinite; }
+        .blue-1 { top: 15%; width: 160px; animation-duration: 45s; opacity: 0.7; }
+        .blue-2 { top: 60%; width: 220px; animation-duration: 60s; animation-delay: -15s; opacity: 0.5; }
+
+        @keyframes moveReverse {
+            from { transform: translateX(100vw); left: 0; }
+            to { transform: translateX(-300px); left: 0; }
+        }
+
+        /* --- DASHBOARD CARD --- */
         .dashboard {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 2.5rem 1.5rem;
-            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 3rem 1.5rem;
+            border-radius: 40px;
             width: 100%;
             max-width: 380px;
             text-align: center;
-            z-index: 10; /* Paling depan */
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin-bottom: 30px; 
         }
 
         .profile-img {
-            width: 120px; height: 120px;
+            width: 110px; height: 110px;
             border-radius: 50%;
             border: 4px solid white;
-            margin-bottom: 1.2rem;
             object-fit: cover;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
-        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .subtitle { 
-            font-size: 0.85rem; 
-            color: #f1f5f9; 
-            margin-bottom: 2rem; 
-            line-height: 1.5;
-            font-weight: 300;
-        }
+        h1 { font-size: 1.8rem; margin-bottom: 0.3rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .subtitle { font-size: 0.85rem; opacity: 0.9; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 2rem; }
 
         .btn {
-            text-decoration: none;
-            color: white;
-            padding: 16px 10px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            text-decoration: none; color: white; padding: 16px 10px; border-radius: 22px;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.85rem;
             transition: all 0.3s ease;
         }
+        .btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-5px); }
+        .btn-full { grid-column: span 2; background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)); border: none; font-weight: 700; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+        /* --- MUSIC PLAYER --- */
+        .player-container {
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
         }
 
-        .btn span { font-size: 1.4rem; }
+        .track-info { margin-bottom: 12px; }
+        #track-name { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 2px; }
+        #track-artist { font-size: 0.8rem; opacity: 0.8; }
 
-        .btn-full {
-            grid-column: span 2;
-            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
-            font-weight: 700;
-            margin-top: 5px;
-            border: none;
+        .progress-container {
+            width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; margin: 15px 0; cursor: pointer;
         }
+        #progress-bar { width: 0%; height: 100%; background: var(--secondary-color); border-radius: 10px; transition: width 0.1s linear; }
 
-        .music-btn {
-            position: fixed;
-            bottom: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            z-index: 100;
-            cursor: pointer;
-        }
+        .controls { display: flex; justify-content: center; align-items: center; gap: 25px; }
+        .control-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: 0.2s; opacity: 0.9; }
+        .control-btn:hover { transform: scale(1.2); opacity: 1; color: var(--secondary-color); }
+        #play-btn { font-size: 2.2rem; }
     </style>
 </head>
-<body onclick="playAudio()">
+<body>
 
     <img src="gunung.png" class="mountain" alt="gunung">
-    <img src="awan1.jpg" class="cloud cloud-1" alt="awan">
-    <img src="awan2.jpg" class="cloud cloud-2" alt="awan">
-    <img src="awan3.jpg" class="cloud cloud-3" alt="awan">
+    
+    <img src="awan1.png" class="cloud cloud-white cloud-1" alt="awan">
+    <img src="awan2.png" class="cloud cloud-white cloud-2" alt="awan">
+    <img src="awan3.png" class="cloud cloud-white cloud-3" alt="awan">
 
-    <audio id="myAudio" loop>
-        <source src="asap.mp3" type="audio/mpeg">
-    </audio>
+    <img src="awanbiru1.png" class="cloud cloud-blue blue-1" alt="awan biru">
+    <img src="awanbiru2.png" class="cloud cloud-blue blue-2" alt="awan biru">
 
     <div class="dashboard">
-        <img src="IMG_0916.JPG" alt="Profile" class="profile-img">
-        
-        <h1>Halo, I'm Fauziah 👋</h1>
-        <p class="subtitle">Creative Developer | Accountant | Creative Designer</p>
+        <div class="profile-wrapper">
+            <img src="IMG_0916.JPG" alt="Fauziah" class="profile-img">
+        </div>
+        <h1>Fauziah 👋</h1>
+        <p class="subtitle">Creative Dev & Designer</p>
 
         <div class="menu-grid">
             <a href="#" class="btn"><span>🏆</span> Sertifikat</a>
@@ -175,23 +164,90 @@
             <a href="#" class="btn"><span>💡</span> Portofolio</a>
             <a href="#" class="btn btn-full"><span>✨</span> My Social Media</a>
         </div>
+
+        <div class="player-container">
+            <div class="track-info">
+                <span id="track-name">Memuat Lagu...</span>
+                <span id="track-artist">Artis</span>
+            </div>
+            
+            <div class="progress-container" id="progress-area">
+                <div id="progress-bar"></div>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" onclick="prevTrack()">⏮</button>
+                <button class="control-btn" id="play-btn" onclick="togglePlay()">▶</button>
+                <button class="control-btn" onclick="nextTrack()">⏭</button>
+            </div>
+        </div>
     </div>
 
-    <button class="music-btn" id="musicStatus">🎵 Musik: Off (Ketuk layar)</button>
+    <audio id="audio-player"></audio>
 
     <script>
-        const audio = document.getElementById("myAudio");
-        const statusText = document.getElementById("musicStatus");
-        let hasPlayed = false;
+        const playlist = [
+            { name: "ASAP", artist: "NewJeans", src: "asap.mp3" },
+            { name: "Hype Boy", artist: "NewJeans", src: "hypeboy.mp3" },
+            { name: "Ditto", artist: "NewJeans", src: "ditto.mp3" }
+        ];
 
-        function playAudio() {
-            if (!hasPlayed) {
-                audio.play().then(() => {
-                    statusText.innerText = "🎵 Playing: NewJeans - ASAP";
-                    hasPlayed = true;
-                }).catch(err => console.log("Menunggu klik user..."));
-            }
+        let trackIndex = 0;
+        let isPlaying = false;
+        const audio = document.getElementById("audio-player");
+        const playBtn = document.getElementById("play-btn");
+        const trackName = document.getElementById("track-name");
+        const trackArtist = document.getElementById("track-artist");
+        const progressBar = document.getElementById("progress-bar");
+        const progressArea = document.getElementById("progress-area");
+
+        function loadTrack(index) {
+            const track = playlist[index];
+            audio.src = track.src;
+            trackName.innerText = track.name;
+            trackArtist.innerText = track.artist;
         }
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerText = "▶";
+            } else {
+                audio.play();
+                playBtn.innerText = "⏸";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function nextTrack() {
+            trackIndex = (trackIndex + 1) % playlist.length;
+            loadTrack(trackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        function prevTrack() {
+            trackIndex = (trackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(trackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        audio.addEventListener("timeupdate", () => {
+            if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = progress + "%";
+            }
+        });
+
+        progressArea.addEventListener("click", (e) => {
+            const width = progressArea.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        });
+
+        audio.addEventListener("ended", nextTrack);
+        
+        loadTrack(trackIndex);
     </script>
 </body>
 </html>
