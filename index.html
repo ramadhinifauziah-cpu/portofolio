@@ -28,19 +28,21 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-y: auto; /* Scroll Aktif */
+            overflow-y: auto; 
             overflow-x: hidden;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         /* --- BACKGROUND ELEMENTS --- */
         .mountain {
             position: fixed;
-            bottom: -10px;
+            bottom: -5px; /* Sedikit lebih turun agar menyatu */
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            max-width: 1200px;
+            /* UKURAN BG DIGEDEIN */
+            width: 110vw; 
+            min-height: 40vh;
+            object-fit: cover;
             z-index: -1;
             image-rendering: pixelated;
             pointer-events: none;
@@ -55,88 +57,88 @@
             will-change: transform;
         }
 
-        /* Awan Putih (Kiri -> Kanan) */
+        /* Awan Putih - Ukuran digedein sedikit agar proporsional */
         .cloud-white { animation: moveClouds linear infinite; }
-        .cloud-1 { top: 10%; width: 200px; animation-duration: 35s; opacity: 0.8; }
-        .cloud-2 { top: 25%; width: 140px; animation-duration: 50s; animation-delay: -10s; opacity: 0.6; }
-        .cloud-3 { top: 45%; width: 180px; animation-duration: 40s; animation-delay: -20s; opacity: 0.7; }
+        .cloud-1 { top: 8%; width: 250px; animation-duration: 30s; opacity: 0.8; }
+        .cloud-2 { top: 22%; width: 180px; animation-duration: 45s; animation-delay: -5s; opacity: 0.6; }
+        .cloud-3 { top: 40%; width: 220px; animation-duration: 38s; animation-delay: -15s; opacity: 0.7; }
 
         @keyframes moveClouds {
-            from { transform: translateX(-300px); left: 0; }
-            to { transform: translateX(100vw); left: 0; }
+            from { transform: translateX(-350px); left: 0; }
+            to { transform: translateX(110vw); left: 0; }
         }
 
-        /* Awan Biru (Kanan -> Kiri) */
+        /* Awan Biru */
         .cloud-blue { animation: moveReverse linear infinite; }
-        .blue-1 { top: 15%; width: 160px; animation-duration: 45s; opacity: 0.7; }
-        .blue-2 { top: 60%; width: 220px; animation-duration: 60s; animation-delay: -15s; opacity: 0.5; }
+        .blue-1 { top: 12%; width: 200px; animation-duration: 40s; opacity: 0.7; }
+        .blue-2 { top: 65%; width: 280px; animation-duration: 55s; animation-delay: -10s; opacity: 0.5; }
 
         @keyframes moveReverse {
-            from { transform: translateX(100vw); left: 0; }
-            to { transform: translateX(-300px); left: 0; }
+            from { transform: translateX(110vw); left: 0; }
+            to { transform: translateX(-350px); left: 0; }
         }
 
         /* --- DASHBOARD CARD --- */
         .dashboard {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 3rem 1.5rem;
-            border-radius: 40px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 3rem 1.8rem;
+            border-radius: 45px;
             width: 100%;
-            max-width: 380px;
+            max-width: 400px; /* Sedikit lebih lebar agar elegan */
             text-align: center;
             z-index: 10;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            margin-bottom: 30px; 
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px; 
         }
 
         .profile-img {
-            width: 110px; height: 110px;
+            width: 120px; height: 120px;
             border-radius: 50%;
             border: 4px solid white;
             object-fit: cover;
             margin-bottom: 1.5rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        h1 { font-size: 1.8rem; margin-bottom: 0.3rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .subtitle { font-size: 0.85rem; opacity: 0.9; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        h1 { font-size: 2rem; margin-bottom: 0.4rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .subtitle { font-size: 0.9rem; opacity: 0.9; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 2rem; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 2.5rem; }
 
         .btn {
-            text-decoration: none; color: white; padding: 16px 10px; border-radius: 22px;
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.85rem;
-            transition: all 0.3s ease;
+            text-decoration: none; color: white; padding: 18px 12px; border-radius: 24px;
+            background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-5px); }
-        .btn-full { grid-column: span 2; background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)); border: none; font-weight: 700; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+        .btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-full { grid-column: span 2; background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)); border: none; font-weight: 700; box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4); }
 
         /* --- MUSIC PLAYER --- */
         .player-container {
-            background: rgba(0, 0, 0, 0.3); 
-            padding: 20px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.35); 
+            padding: 22px;
+            border-radius: 35px;
+            border: 1px solid rgba(255,255,255,0.15);
             margin-top: 10px;
         }
 
-        .track-info { margin-bottom: 12px; }
-        #track-name { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 2px; }
-        #track-artist { font-size: 0.8rem; opacity: 0.8; }
+        .track-info { margin-bottom: 15px; }
+        #track-name { font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: 4px; }
+        #track-artist { font-size: 0.85rem; opacity: 0.8; }
 
         .progress-container {
-            width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; margin: 15px 0; cursor: pointer;
+            width: 100%; height: 7px; background: rgba(255,255,255,0.2); border-radius: 10px; margin: 18px 0; cursor: pointer;
         }
         #progress-bar { width: 0%; height: 100%; background: var(--secondary-color); border-radius: 10px; transition: width 0.1s linear; }
 
-        .controls { display: flex; justify-content: center; align-items: center; gap: 25px; }
-        .control-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: 0.2s; opacity: 0.9; }
+        .controls { display: flex; justify-content: center; align-items: center; gap: 30px; }
+        .control-btn { background: none; border: none; color: white; font-size: 1.6rem; cursor: pointer; transition: 0.2s; opacity: 0.9; }
         .control-btn:hover { transform: scale(1.2); opacity: 1; color: var(--secondary-color); }
-        #play-btn { font-size: 2.2rem; }
+        #play-btn { font-size: 2.5rem; }
     </style>
 </head>
 <body>
